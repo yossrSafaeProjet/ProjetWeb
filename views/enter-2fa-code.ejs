@@ -1,0 +1,18 @@
+<!-- enter-2fa-code.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter 2FA Code</title>
+</head>
+<body>
+    <h2>Entrez le code 2FA de Google Authenticator</h2>
+    <form class="verify-2fa-form" method="POST" action="/verify-2fa-code">
+        <label for="2fa">Code 2FA:</label>
+        <input type="text" id="2fa" name="2fa" required>
+        <button   id="2fa" type="submit">Vérifier</button>
+    </form>
+</body>
+</html>

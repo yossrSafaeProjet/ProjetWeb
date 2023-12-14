@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f3f3f3;
+    background-image: url('https://cdn.discordapp.com/attachments/1160918863882502234/1184443523831959602/image.jpg?ex=658bfdfd&is=657988fd&hm=65760060350df73810a2241a31c1973ea2a1a9aa1f089363d4b6b70a58ee9020&'); /* Remplacez ceci par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #1b959e; /* Fond semi-transparent pour le formulaire */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+label,
+input[type="password"],
+input[type="text"],
+input[type="button"] {
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type="button"] {
+    background-color: #1b959e;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="button"]:hover {
+    background-color:  #010b0b;
+}
+
+input[type="button"]:active {
+    background-color:  #010b0b;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+a.public {
+    background-color: #3498db;
+    color: #fff;
+}
+
+a.private {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+a:hover {
+    opacity: 0.8;
+}
