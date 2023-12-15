@@ -33,6 +33,7 @@ router.get('/generate-2fa-secret', (req, res) => {
           res.status(500).send('Erreur lors de l\'enregistrement de la clé 2FA.');
         } else {
           req.session.secret = secret.base32; // Stockez la clé secrète en session
+          
           // Renvoyez le code QR et d'autres informations à la vue
           res.render('generate-2fa-secret', { imageUrl, secret });
         }

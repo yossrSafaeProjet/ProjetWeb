@@ -1,11 +1,11 @@
-
+/* 
 /* Ajoutez des styles CSS ici pour styliser vos éléments */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color:blue;
     margin: 0;
     padding: 0;
-    background-image: "";
+    background: url("https://im.qccdn.fr/node/application-mobile-queldebit-92526/thumbnail_800x480px-116290.jpg");
 
 }
 
@@ -18,8 +18,8 @@ header {
 
 main {
     max-width: 600px;
-    margin: 20px auto;
-    background-color: white;
+    margin: 70px auto;
+    background-color:blue;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -72,4 +72,18 @@ footer {
     margin-top: 20px;
     text-align: center;
     color: #666;
+}
+button.login-button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    max-width: 210px;
+    margin-top: 50px;
+    transition: background-color 0.3s ease;
+    margin:auto;
+    
 }

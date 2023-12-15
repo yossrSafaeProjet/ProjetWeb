@@ -1,0 +1,56 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background: url("https://img.freepik.com/photos-premium/dessin-architectural-abstrait-interieur-blanc-partir-tableau-eclairage-au-neon-degrade-couleur-3d_689904-91498.jpg?size=626&ext=jpg");
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Changer de 'row' à 'column' pour empiler les éléments verticalement */
+    align-items: center; /* Centrer les éléments horizontalement */
+    padding: 20px;
+}
+
+#btn-Cr {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px; /* Espace en bas du bouton */
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.publications {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Espacement équitable entre les éléments */
+}
+
+.publication {
+    width: 300px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box; /* Assurer que la largeur inclut les bordures et les rembourrages */
+}
+.btn-Cr {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-Cr:hover {
+    background-color: #2980b9;
+}

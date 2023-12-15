@@ -1,0 +1,27 @@
+<!-- espacePublic.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Public</title>
+    <link rel="stylesheet" href="espacePublic.css"> <!-- Incluez ici votre fichier de style CSS -->
+
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue sur notre Blog Public</h1>
+        <div class="publications">
+
+            <!-- Boucle sur les publications pour les afficher -->
+            <% publications.forEach(publication => { %>
+                <div class="publication">
+                    <h2><%= publication.title %></h2>
+                    <p><%= publication.content %></p>
+                </div>
+            <% }) %>
+        </div>
+        <p>Pour publier des publications allez à l'espace privé(e)!</p>
+        <button onclick="window.location.href='/login'" class="btn-Cr">Allez à l'espace privé</button>
+    </div>
+</body>
+</html>

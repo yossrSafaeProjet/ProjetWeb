@@ -3,12 +3,14 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    background: url("https://img.freepik.com/photos-premium/dessin-architectural-abstrait-interieur-blanc-partir-tableau-eclairage-au-neon-degrade-couleur-3d_689904-91498.jpg?size=626&ext=jpg");
+
 }
 
 .container {
     max-width: 800px;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: burlywood;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

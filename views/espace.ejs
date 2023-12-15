@@ -9,6 +9,7 @@
     <title>User Interface</title>
 </head>
 <body>
+    <button id="logoutBtn" type="submit">Se déconnecter</button>
     <div class="container">
         
             <!-- Affichez les publications et désactivez les boutons -->
@@ -20,31 +21,28 @@
             <!-- Affichez normalement les boutons pour un utilisateur authentifié -->
             <div class="publication-form">
                 <h2>Ajouter une publication</h2>
-                <form method="POST" action="/publication">
+                <form id="publicationForm" method="POST" action="/publication">
                     <label for="title">Titre:</label>
                     <input type="text" id="title" name="title" required>
 
                     <label for="content">Contenu:</label>
                     <textarea id="content" name="content" rows="4" required></textarea>
 
-                    <button id="publishButton"  class="add-button" type="submit">Publier</button>
+                    <button id="publishButton" class="<%= actionsDisabled ? 'disabled' : '' %>" type="submit" <%= actionsDisabled ? 'disabled' : '' %>>Publier</button>
                 </form>
             </div>
-
-            <div class="publications-list">
+            <div id="publicationsList" class="publications-list">
                 <h2>Liste des publications</h2>
                 <!-- Zone pour afficher les publications existantes -->
                 <div class="publication">
-                    <h3>Titre de la publication</h3>
-                    <p>Contenu de la publication.</p>
-                    <button class="edit-button" disabled>Modifier</button>
-                    <button class="delete-button" disabled>Supprimer</button>
-                </div>
+
+                
             </div>
       
     </div>
     <!-- <script defer src="espace.js"> -->
      
-    </script>
+        <script src="espace.js"></script>
+        
 </body>
 </html>
