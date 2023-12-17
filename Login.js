@@ -5,14 +5,15 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
-const dbPath = path.join(__dirname, 'ma_base_de_donnees.db');
 const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const jwt = require('jsonwebtoken');
 
 const secretKey = 'aqzsedrftg';
+const dbPath = path.join(__dirname, 'ma_base_de_donnees.db');
 
+const db = new SQLite3.Database(dbPath);
 // Configurations Passport
 passport.use(new LocalStrategy(
     { usernameField: 'email' },
@@ -54,7 +55,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-router.post('/login', (req, res, next) => {
+/* router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         const db = new SQLite3.Database(dbPath);
 
@@ -113,7 +114,53 @@ router.post('/login', (req, res, next) => {
             }
         });
     })(req, res, next);
-});
+}); */
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.render('login', { message: 'Nom d\'utilisateur ou mot de passe incorrect.' });
+      }
+      req.logIn(user, async (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+
+        if (user['fa2_secret']) {
+          try {
+            const token = jwt.sign({
+              userId: user.id,
+              twoFactorEnabled: user.fa2_secret !== null
+            }, secretKey);
+
+            const expirationTime = new Date(Date.now() + 3600000);
+
+            await new Promise((resolve, reject) => {
+              db.run('INSERT INTO jwt_tokens (user_id, token, expires_at, is_revoked) VALUES (?, ?, ?, 0)', [user.id, token, expirationTime], (insertErr) => {
+                if (insertErr) {
+                  console.error('Erreur lors de l\'enregistrement du JWT :', insertErr);
+                  reject(insertErr);
+                } else {
+                  console.log('JWT enregistré avec succès');
+                  resolve();
+                }
+              });
+            });
+
+            res.set('Authorization', `Bearer ${token}`);
+            return res.redirect('/espace');
+          } catch (error) {
+            console.error('Erreur lors de la génération et de l\'enregistrement du JWT :', error);
+            return res.status(500).send('Erreur lors de la connexion');
+          }
+        } else {
+          return res.redirect('/generate-2fa-secret');
+        }
+      });
+    })(req, res, next);
+  });
 
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] })

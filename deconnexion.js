@@ -7,35 +7,26 @@ const SQLite3 = require('sqlite3');
 const dbPath = path.join(__dirname, 'ma_base_de_donnees.db');
 const db = new SQLite3.Database(dbPath);
 
-router.post('/logout', (req, res) => {
-    const userId = req.user.id; // Obtenez l'ID de l'utilisateur connecté (utilisant Passport.js)
+/* router.post('/logout', (req, res) => {
+    const userId = req.user.id;
   
-    // Fonction pour révoquer tous les autres JWT associés à cet utilisateur dans la base de données
     function revokeOtherUserTokens(userId) {
-      db.run('UPDATE jwt_tokens SET is_revoked = true WHERE user_id = ?', [userId], (err) => {
+      db.run('UPDATE jwt_tokens SET is_revoked = 1 WHERE user_id = ?', [userId], (err) => {
         if (err) {
           console.error('Erreur lors de la révocation des autres JWT :', err);
           res.status(500).send('Erreur lors de la déconnexion des autres équipements.');
         } else {
-  
-          // Déconnexion des autres équipements effectuée avec succès
+          res.clearCookie('session-cookie');
           console.log('Déconnexion des autres équipements effectuée avec succès.');
-          db.all('SELECT * FROM jwt_tokens', (err, rows) => {
-            if (err) {
-              console.error('Erreur lors de la récupération des données de la table jwt_tokens :', err);
-            } else {
-              console.table(rows); // Affichage sous forme de tableau
-            }
-          });
-          // Redirection vers la page de connexion après la déconnexion des autres sessions
           res.redirect('/login');
         }
       });
     }
+  
     revokeOtherUserTokens(userId);
   });
-
-  router.get('/espace', (req, res) => {
+ */
+  /* router.get('/espace', (req, res) => {
     const userId = req.user.id; // Supposons que vous avez un utilisateur authentifié
   
     // Récupérez les publications de l'utilisateur depuis la base de données
@@ -61,5 +52,60 @@ router.post('/logout', (req, res) => {
         }
       }
     });
+  }); */
+  router.get('/espace', (req, res) => {
+    if (req.isAuthenticated()) {
+      const userId = req.user.id;
+      db.get('SELECT * FROM jwt_tokens WHERE user_id = ?', [userId], (err, tokenInfo) => {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).send('Erreur lors de la vérification du token.');
+        }
+        if (!tokenInfo) {
+          return res.redirect('/login');
+        } else {
+          return res.render('espace');
+        }
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  /* router.post('/logout', (req, res) => {
+    const userId = req.user.id;
+  
+    function revokeOtherUserTokens(userId) {
+      db.run('UPDATE jwt_tokens SET is_revoked = 1 WHERE user_id = ?', [userId], (err) => {
+        if (err) {
+          console.error('Erreur lors de la révocation des autres JWT :', err);
+          res.status(500).send('Erreur lors de la déconnexion des autres équipements.');
+        } else {
+          res.clearCookie('session-cookie');
+          console.log('Déconnexion des autres équipements effectuée avec succès.');
+          res.redirect('/login');
+        }
+      });
+    }
+  
+    revokeOtherUserTokens(userId);
+  }); */
+  router.post('/logout', (req, res) => {
+    const userId = req.user.id;
+    console.log(userId);
+  
+    function revokeOtherUserTokens(userId) {
+      db.run('UPDATE jwt_tokens SET is_revoked = 1 WHERE user_id = ?', [userId], (err) => {
+        if (err) {
+          console.error('Erreur lors de la révocation des autres JWT :', err);
+          res.status(500).send('Erreur lors de la déconnexion des autres équipements.');
+        } else {
+          res.clearCookie('session-cookie');
+          console.log('Déconnexion des autres équipements effectuée avec succès.');
+          res.redirect('/login');
+        }
+      });
+    }
+  
+    revokeOtherUserTokens(userId);
   });
   module.exports = router;

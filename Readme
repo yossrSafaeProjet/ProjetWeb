@@ -1,0 +1,4 @@
+Pour la connexion : 
+Nous avons utilisé la fonction bycrpyte pour le mot de passe et le passport pour l'authetification.
+Pour l'authetification à deux facteurs:
+Nous avous utilisé QrCode , ainsi speakesay pour  l'implémentation de l'authentification à deux facteurs (2FA).

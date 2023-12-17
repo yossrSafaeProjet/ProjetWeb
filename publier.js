@@ -42,4 +42,55 @@ router.post('/publication', (req, res) => {
     });
 });
 
+router.get('/publications', (req, res) => {
+    const userId = req.user.id; // Assurez-vous que l'utilisateur est authentifié et que req.user contient les informations nécessaires
+
+    // Vérifiez si l'utilisateur est authentifié
+    if (!userId) {
+        return res.status(401).json({ error: 'Utilisateur non authentifié' });
+    }
+
+    // Récupérez toutes les publications de la base de données pour l'utilisateur spécifique
+    db.all('SELECT * FROM publications WHERE user_id = ?', [userId], (err, publications) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erreur lors de la récupération des publications existantes' });
+        }
+
+        // Envoyez les publications au client
+        res.json({ publications });
+    });
+});
+// Ajoutez cette nouvelle route pour la suppression
+function getPublicationsForUser(userId, res) {
+    // Récupérez toutes les publications de la base de données pour l'utilisateur spécifique
+    db.all('SELECT * FROM publications WHERE user_id = ?', [userId], (err, publications) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erreur lors de la récupération des publications' });
+        }
+
+        // Envoyez les publications au client
+        res.json({ publications });
+    });
+}
+router.delete('/publication/:id', (req, res) => {
+    const { id } = req.params; 
+        console.log(id);
+    const userId = req.user.id;
+
+    // Vérifiez si l'utilisateur est authentifié
+    if (!userId) {
+        return res.status(401).json({ error: 'Utilisateur non authentifié' });
+    }
+
+    // Supprimez la publication de la base de données
+    db.run('DELETE FROM publications WHERE id = ? AND user_id = ?', [id, userId], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erreur lors de la suppression de la publication' });
+        }
+
+        // Récupérez toutes les publications mises à jour de la base de données
+        getPublicationsForUser(userId, res);
+    });
+});
+
 module.exports = router;
