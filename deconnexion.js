@@ -108,4 +108,4 @@ const db = new SQLite3.Database(dbPath);
   
     revokeOtherUserTokens(userId);
   });
-  module.exports = router;
+  module.exports = router;  
